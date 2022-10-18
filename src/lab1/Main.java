@@ -26,19 +26,25 @@ public class Main {
             System.out.print("Введіть значення 'm': ");
             m = inputValue(scanner);
             System.out.println("a = " + a + "; n = " + n + "; b = " + b + "; m = " + m);
-            if (a >= n) System.out.println("Помилка! 'a' має бути менше за 'n'.");
-            else if (b >= m) System.out.println("Помилка! 'b' має бути менше за 'm'.");
-            else break;
-        }
-
-        for (byte i = a; i <= n; i++) {
-            for (byte j = b; j <= m; j++) {
-                res += (double) (i * j) / (i - 1);
+            if (a >= n) {
+                System.out.println("Помилка! 'a' має бути менше за 'n'.");
+            } else if (b >= m) {
+                System.out.println("Помилка! 'b' має бути менше за 'm'.");
+            } else {
+                break;
             }
         }
-        if (res == Double.NEGATIVE_INFINITY || res == Double.POSITIVE_INFINITY)
+
+        if (a <= 1 && n > 1) {
             System.out.println("Ділення на нуль!");
-        else System.out.println("Відповідь: " + res);
+        } else {
+            for (byte i = a; i <= n; i++) {
+                for (byte j = b; j <= m; j++) {
+                    res += (double) (i * j) / (i - 1);
+                }
+            }
+            System.out.println("Відповідь: " + res);
+        }
 
         System.out.println("Program finished");
     }
