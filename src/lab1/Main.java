@@ -15,29 +15,30 @@ public class Main {
         byte a, b, n, m;
         double res = 0;
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введіть значення 'a': ");
-        a = inputValue(scanner);
-        System.out.print("Введіть значення 'n': ");
-        n = inputValue(scanner);
-        System.out.print("Введіть значення 'b': ");
-        b = inputValue(scanner);
-        System.out.print("Введіть значення 'm': ");
-        m = inputValue(scanner);
-        System.out.println("a = " + a + "; n = " + n + "; b = " + b + "; m = " + m);
-
-        if (a >= n) System.out.println("Помилка! 'a' має бути менше за 'n'.");
-        else if (b >= m) System.out.println("Помилка! 'b' має бути менше за 'm'.");
-        else {
-            for (byte i = a; i <= n; i++) {
-                for (byte j = b; j <= m; j++) {
-                    res += (double) (i * j) / (i - 1);
-                }
-            }
-            if (res == Double.NEGATIVE_INFINITY || res == Double.POSITIVE_INFINITY)
-                System.out.println("Ділення на нуль!");
-            else System.out.println("Відповідь: " + res);
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Введіть значення 'a': ");
+            a = inputValue(scanner);
+            System.out.print("Введіть значення 'n': ");
+            n = inputValue(scanner);
+            System.out.print("Введіть значення 'b': ");
+            b = inputValue(scanner);
+            System.out.print("Введіть значення 'm': ");
+            m = inputValue(scanner);
+            System.out.println("a = " + a + "; n = " + n + "; b = " + b + "; m = " + m);
+            if (a >= n) System.out.println("Помилка! 'a' має бути менше за 'n'.");
+            else if (b >= m) System.out.println("Помилка! 'b' має бути менше за 'm'.");
+            else break;
         }
+
+        for (byte i = a; i <= n; i++) {
+            for (byte j = b; j <= m; j++) {
+                res += (double) (i * j) / (i - 1);
+            }
+        }
+        if (res == Double.NEGATIVE_INFINITY || res == Double.POSITIVE_INFINITY)
+            System.out.println("Ділення на нуль!");
+        else System.out.println("Відповідь: " + res);
 
         System.out.println("Program finished");
     }
