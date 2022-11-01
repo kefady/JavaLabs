@@ -26,6 +26,7 @@ public class Main {
         MatrixAction.printMatrix(matrixB);
 
         if (!MatrixAction.isMatrixNormal(matrixB)) {
+            System.out.println("Матриця не повина бути зубчастою!");
             return;
         }
 

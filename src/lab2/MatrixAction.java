@@ -26,20 +26,22 @@ public class MatrixAction {
     public static int calculateMaxSum(short[][] matrix) {
         int rowCount = matrix.length;
         int columnCount = matrix[0].length;
+        boolean onlyOneBiggest = true;
         int result = 0;
         for (int i = 1; i < columnCount; i += 2) {
             short value = matrix[0][i];
             for (int j = 1; j < rowCount; j++) {
                 if (value == matrix[j][i]) {
-                    value = 0;
-                    break;
-                } else {
-                    if (value < matrix[j][i]) {
-                        value = matrix[j][i];
-                    }
+                    onlyOneBiggest = false;
+                } else if (value < matrix[j][i]) {
+                    value = matrix[j][i];
+                    onlyOneBiggest = true;
                 }
             }
-            result += value;
+            if (onlyOneBiggest) {
+                result += value;
+            }
+            onlyOneBiggest = true;
         }
         return result;
     }
@@ -47,20 +49,22 @@ public class MatrixAction {
     public static int calculateMinSum(short[][] matrix) {
         int rowCount = matrix.length;
         int columnCount = matrix[0].length;
+        boolean onlyOneLeast = true;
         int result = 0;
         for (int i = 0; i < columnCount; i += 2) {
             short value = matrix[0][i];
             for (int j = 1; j < rowCount; j++) {
                 if (value == matrix[j][i]) {
-                    value = 0;
-                    break;
-                } else {
-                    if (value > matrix[j][i]) {
-                        value = matrix[j][i];
-                    }
+                    onlyOneLeast = false;
+                } else if (value > matrix[j][i]) {
+                    value = matrix[j][i];
+                    onlyOneLeast = true;
                 }
             }
-            result += value;
+            if (onlyOneLeast) {
+                result += value;
+            }
+            onlyOneLeast = true;
         }
         return result;
     }
