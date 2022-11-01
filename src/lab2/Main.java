@@ -25,13 +25,18 @@ public class Main {
         System.out.println("\nМатриця 'B'");
         MatrixAction.printMatrix(matrixB);
 
+        if (!MatrixAction.isMatrixNormal(matrixB)) {
+            return;
+        }
+
         short[][] matrixC = MatrixAction.multMatrixByConst(matrixB, constA);
         System.out.println("\nМатриця 'C'");
         MatrixAction.printMatrix(matrixC);
 
-        int[] sum = MatrixAction.calculateSum(matrixC);
-        System.out.println("\nСума найбільших елементів в стовпцях матриці з непарними номерами: " + sum[1]);
-        System.out.println("Сума найменших елементів в стовпцях матриці з парними номерами: " + sum[0]);
+        int maxSum = MatrixAction.calculateMaxSum(matrixC);
+        int minSum = MatrixAction.calculateMinSum(matrixC);
+        System.out.println("\nСума найбільших елементів в стовпцях матриці з непарними номерами: " + maxSum);
+        System.out.println("Сума найменших елементів в стовпцях матриці з парними номерами: " + minSum);
 
         System.out.println("Program finished");
     }
@@ -40,8 +45,12 @@ public class Main {
         String value;
         while (true) {
             value = scanner.next();
-            if (isShort(value) && (Short.parseShort(value) >= from && Short.parseShort(value) <= to)) break;
-            else System.out.print("Помилка вводу -> Допустимий діапазон: від " + from + " до " + to + ". Спробуйте ще раз: ");
+            if (isShort(value) && (Short.parseShort(value) >= from && Short.parseShort(value) <= to)) {
+                break;
+            }
+            else {
+                System.out.print("Помилка вводу -> Допустимий діапазон: від " + from + " до " + to + ". Спробуйте ще раз: ");
+            }
         }
         return Short.parseShort(value);
     }
