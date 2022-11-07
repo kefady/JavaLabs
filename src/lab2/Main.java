@@ -25,7 +25,7 @@ public class Main {
         System.out.println("\nМатриця 'B'");
         MatrixAction.printMatrix(matrixB);
 
-        if (!MatrixAction.isMatrixNormal(matrixB)) {
+        if (MatrixAction.isMatrixGear(matrixB)) {
             System.out.println("Матриця не повина бути зубчастою!");
             return;
         }

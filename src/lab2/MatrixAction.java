@@ -82,13 +82,13 @@ public class MatrixAction {
         }
     }
 
-    public static boolean isMatrixNormal(short[][] matrix) {
+    public static boolean isMatrixGear(short[][] matrix) {
         int length = matrix[0].length;
         for (int i = 1; i < matrix.length; i++) {
             if (matrix[i].length != length) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
