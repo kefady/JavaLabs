@@ -23,7 +23,11 @@ public class Main {
 
         StringBuilder text = inputTextFromFile(filePath);
         StringBuilder[] sentences = splitSentences(text);
+        System.out.println("До сортування:");
+        Arrays.stream(sentences).forEach(Main::printSentence);
+        System.out.println("\nПісля сортування:");
         Arrays.stream(sentences).sorted(Comparator.comparing(Main::getAmountOfWords)).forEach(Main::printSentence);
+
         System.out.println("Program finished");
     }
 
