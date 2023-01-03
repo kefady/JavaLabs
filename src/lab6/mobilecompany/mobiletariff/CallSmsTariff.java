@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class CallSmsTariff extends CallTariff {
     private final int amountOfSms;
+    private double payment = -1;
 
     public CallSmsTariff(String name, int rawPayment, int minutesForCall, int amountOfSms) {
         super(name, rawPayment, minutesForCall);
@@ -16,21 +17,26 @@ public class CallSmsTariff extends CallTariff {
 
     @Override
     public double getPayment() {
-        return Math.round(getRawPayment() +
-                getRawPayment() * ((double) getMinutesForCall() / 1200) +
-                (double) getAmountOfSms() / 50);
+        if (payment == -1) {
+            payment = Math.round(getRawPayment() +
+                    getRawPayment() * ((double) getMinutesForCall() / 1200) +
+                    (double) getAmountOfSms() / 50);
+        }
+        return payment;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        CallSmsTariff mobileTariff = (CallSmsTariff) obj;
-        return Objects.equals(getName(), mobileTariff.getName()) &&
-                getRawPayment() == mobileTariff.getRawPayment() &&
-                getPayment() == mobileTariff.getPayment() &&
-                getMinutesForCall() == mobileTariff.getMinutesForCall() &&
-                getAmountOfSms() == mobileTariff.getAmountOfSms();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CallSmsTariff that = (CallSmsTariff) o;
+        return amountOfSms == that.amountOfSms && Double.compare(that.payment, payment) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), amountOfSms, payment);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package lab6.mobilecompany.mobiletariff;
 
+import lab8.NoMoreCustomersException;
+
 import java.util.Objects;
 
 public abstract class MobileTariff {
     private String name;
     private final int rawPayment;
-    private int amountOfClients = 0;
+    private int amountOfClients;
 
     public MobileTariff(String name, int rawPayment) {
         this.name = name;
@@ -20,9 +22,13 @@ public abstract class MobileTariff {
         amountOfClients++;
     }
 
-    public void removeClient() {
-        if (amountOfClients > 0) amountOfClients--;
-        else System.out.println("No more clients.");
+    public void removeClient() throws NoMoreCustomersException {
+        if (amountOfClients > 0) {
+            amountOfClients--;
+        }
+        else {
+         throw new NoMoreCustomersException("The number of customers is zero.");
+        }
     }
 
     public void setAmountOfClients(int amountOfClients) {
@@ -44,13 +50,16 @@ public abstract class MobileTariff {
     public abstract double getPayment();
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        MobileTariff mobileTariff = (MobileTariff) obj;
-        return Objects.equals(getName(), mobileTariff.getName()) &&
-                getRawPayment() == mobileTariff.getRawPayment() &&
-                getPayment() == mobileTariff.getPayment();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MobileTariff that = (MobileTariff) o;
+        return rawPayment == that.rawPayment && amountOfClients == that.amountOfClients && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, rawPayment, amountOfClients);
     }
 
     @Override

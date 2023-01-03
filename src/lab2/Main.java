@@ -26,7 +26,7 @@ public class Main {
         MatrixAction.printMatrix(matrixB);
 
         if (MatrixAction.isMatrixGear(matrixB)) {
-            System.out.println("Матриця не повина бути зубчастою!");
+            System.out.println("Матриця не повинна бути зубчастою!");
             return;
         }
 

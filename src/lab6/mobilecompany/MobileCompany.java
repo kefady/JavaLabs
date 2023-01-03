@@ -5,6 +5,7 @@ import lab6.mobilecompany.mobiletariff.MobileTariff;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class MobileCompany {
     private final MobileTariff[] mobileTariffs;
@@ -22,24 +23,32 @@ public class MobileCompany {
     }
 
     public void sortByPayment(boolean inReverseOrder) {
-        if (!inReverseOrder) Arrays.sort(mobileTariffs, Comparator.comparing(MobileTariff::getPayment));
-        else Arrays.sort(mobileTariffs, Comparator.comparing(MobileTariff::getPayment).reversed());
+        if (inReverseOrder) {
+            Arrays.sort(mobileTariffs, Comparator.comparing(MobileTariff::getPayment).reversed());
+        }
+        else {
+            Arrays.sort(mobileTariffs, Comparator.comparing(MobileTariff::getPayment));
+        }
     }
 
-    public ArrayList<MobileTariff> getTariffsInPaymentRange(int fromPayment, int toPayment) {
-        ArrayList<MobileTariff> mobileTariffsMatchPayment = new ArrayList<>();
+    public List<MobileTariff> getTariffsInPaymentRange(double fromPayment, double toPayment) {
+        List<MobileTariff> mobileTariffsMatchPayment = new ArrayList<>();
         if (fromPayment > toPayment) {
-            int temp = fromPayment;
+            double temp = fromPayment;
             fromPayment = toPayment;
             toPayment = temp;
         }
         for (MobileTariff mobileTariff : mobileTariffs) {
-            if (mobileTariff.getPayment() >= fromPayment && mobileTariff.getPayment() <= toPayment)
+            double payment = mobileTariff.getPayment();
+            if (payment >= fromPayment && payment <= toPayment) {
                 mobileTariffsMatchPayment.add(mobileTariff);
+            }
         }
-        if (mobileTariffsMatchPayment.isEmpty())
-            System.out.println("No tariffs in payment range from " + fromPayment + "$ to " + toPayment + "$.");
         return mobileTariffsMatchPayment;
+    }
+
+    public MobileTariff[] getMobileTariffs() {
+        return mobileTariffs;
     }
 
     @Override

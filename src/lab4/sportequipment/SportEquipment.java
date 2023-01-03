@@ -22,7 +22,9 @@ public class SportEquipment implements Comparable<SportEquipment> {
     }
 
     public void takeSportEquipment() {
-        if (isTaken) System.out.println("You already took the " + name + ". (" + sportType + ")");
+        if (isTaken) {
+            System.out.println("You already took the " + name + ". (" + sportType + ")");
+        }
         else {
             System.out.println("You took the " + name + ". (" + sportType + ")");
             isTaken = true;
@@ -33,7 +35,9 @@ public class SportEquipment implements Comparable<SportEquipment> {
         if (isTaken) {
             System.out.println("You put the " + name + ". (" + sportType + ")");
             isTaken = false;
-        } else System.out.println("You didn't take the " + name + ". (" + sportType + ")");
+        } else {
+            System.out.println("You didn't take the " + name + ". (" + sportType + ")");
+        }
     }
 
     public void getInfo() {

@@ -9,8 +9,8 @@ import lab7.singlylinkedset.SinglyLinkedSet;
 import java.util.*;
 
 /**
- * C2  = 1 (Інтерфейс 'Set')
- * C3 = 1 (Внутрішня структуру колекції 'Однозв’язний список')
+ * C2 = 1 (Інтерфейс 'Set')
+ * C3 = 1 (Внутрішня структура колекції 'Однозв'язний список')
  */
 
 public class Main {

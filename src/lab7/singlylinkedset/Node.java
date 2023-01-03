@@ -1,36 +1,32 @@
 package lab7.singlylinkedset;
 
-public class Node<T> {
-    private T data;
-    private Node<T> next;
+public class Node<E> {
+    private E data;
+    private Node<E> next;
 
-    public Node(T data) {
+    public Node(E data) {
         this.data = data;
         this.next = null;
     }
 
-    public Node(T data, Node<T> next) {
+    public Node(E data, Node<E> next) {
         this.data = data;
         this.next = next;
     }
 
-    public boolean contains(Object obj) {
-        return data.equals(obj);
-    }
-
-    public T getData() {
+    public E getData() {
         return data;
     }
 
-    public Node<T> getNext() {
+    public Node<E> getNext() {
         return next;
     }
 
-    public void setData(T data) {
+    public void setData(E data) {
         this.data = data;
     }
 
-    public void setNext(Node<T> next) {
+    public void setNext(Node<E> next) {
         this.next = next;
     }
 }

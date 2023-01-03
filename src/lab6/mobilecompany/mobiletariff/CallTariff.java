@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class CallTariff extends MobileTariff {
     private final int minutesForCall;
+    private double payment = -1;
 
     public CallTariff(String name, int rawPayment, int minutesForCall) {
         super(name, rawPayment);
@@ -16,19 +17,24 @@ public class CallTariff extends MobileTariff {
 
     @Override
     public double getPayment() {
-        return Math.round(getRawPayment() +
-                getRawPayment() * ((double) getMinutesForCall() / 1200));
+        if (payment == -1) {
+            payment = Math.round(getRawPayment() + getRawPayment() * ((double) getMinutesForCall() / 1200));
+        }
+        return payment;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        CallTariff mobileTariff = (CallTariff) obj;
-        return Objects.equals(getName(), mobileTariff.getName()) &&
-                getRawPayment() == mobileTariff.getRawPayment() &&
-                getPayment() == mobileTariff.getPayment() &&
-                getMinutesForCall() == mobileTariff.getMinutesForCall();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CallTariff that = (CallTariff) o;
+        return minutesForCall == that.minutesForCall && Double.compare(that.payment, payment) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), minutesForCall, payment);
     }
 
     @Override

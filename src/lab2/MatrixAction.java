@@ -26,12 +26,14 @@ public class MatrixAction {
     public static int calculateMaxSum(short[][] matrix) {
         int rowCount = matrix.length;
         int columnCount = matrix[0].length;
-        boolean onlyOneBiggest = true;
+        boolean onlyOneBiggest;
+        short value;
         int result = 0;
         for (int i = 1; i < columnCount; i += 2) {
-            short value = matrix[0][i];
+            value = matrix[0][i];
+            onlyOneBiggest = true;
             for (int j = 1; j < rowCount; j++) {
-                if (value == matrix[j][i]) {
+                if (onlyOneBiggest && value == matrix[j][i]) {
                     onlyOneBiggest = false;
                 } else if (value < matrix[j][i]) {
                     value = matrix[j][i];
@@ -41,7 +43,6 @@ public class MatrixAction {
             if (onlyOneBiggest) {
                 result += value;
             }
-            onlyOneBiggest = true;
         }
         return result;
     }

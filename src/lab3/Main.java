@@ -12,10 +12,10 @@ import java.util.Comparator;
  */
 
 public class Main {
-    static String defaultText = """
+    static final String defaultText = """
             StringBuilder в Java - клас, що представляє послідовність символів. Він дуже схожий на StringBuffer у всьому, крім потокобезпеки.
             StringBuilder надає API, аналогічний API StringBuffer!
-            Різниця лише в тому, що StringBuffer є потокобезпечним, і всі його методи синхронізовані, а StringBuilder — ні. Це єдина особливість?""";
+            Різниця лише в тому, що StringBuffer є потокобезпечним, і всі його методи синхронізовані, а StringBuilder - ні. Це єдина особливість?""";
     static String filePath = "E:\\JavaLabs\\src\\lab3\\Text.txt";
 
     public static void main(String[] args) {
@@ -26,7 +26,11 @@ public class Main {
         System.out.println("До сортування:");
         Arrays.stream(sentences).forEach(Main::printSentence);
         System.out.println("\nПісля сортування:");
-        Arrays.stream(sentences).sorted(Comparator.comparing(Main::getAmountOfWords)).forEach(Main::printSentence);
+        Arrays.sort(sentences, Comparator.comparing(Main::getAmountOfWords));
+        for (StringBuilder sentence : sentences) {
+            printSentence(sentence);
+        }
+        //Arrays.stream(sentences).sorted(Comparator.comparing(Main::getAmountOfWords)).forEach(Main::printSentence);
 
         System.out.println("Program finished");
     }
@@ -49,7 +53,7 @@ public class Main {
     }
 
     private static int getAmountOfWords(StringBuilder sentence) {
-        return sentence.toString().split("\s").length;
+        return sentence.toString().replaceAll("-", "").split("\s+").length;
     }
 
     private static void printSentence(StringBuilder sentence) {

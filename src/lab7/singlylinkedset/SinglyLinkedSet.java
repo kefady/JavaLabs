@@ -1,5 +1,8 @@
 package lab7.singlylinkedset;
 
+import lab8.IllegalStateInSetException;
+import lab8.NoSuchElementInSetException;
+
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -12,7 +15,6 @@ public class SinglyLinkedSet<E> implements Set<E> {
 
     public SinglyLinkedSet() {
         this.head = null;
-        this.size = 0;
     }
 
     public SinglyLinkedSet(E element) {
@@ -20,10 +22,8 @@ public class SinglyLinkedSet<E> implements Set<E> {
         this.size = 1;
     }
 
-    public SinglyLinkedSet(Collection<? extends E> c) {
-        this.head = null;
-        this.size = 0;
-        this.addAll(c);
+    public SinglyLinkedSet(Collection<? extends E> collection) {
+        this.addAll(collection);
     }
 
     @Override
@@ -38,9 +38,9 @@ public class SinglyLinkedSet<E> implements Set<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(Collection<? extends E> collection) {
         int sizeBefore = size;
-        for (E e : c) {
+        for (E e : collection) {
             this.add(e);
         }
         return size != sizeBefore;
@@ -70,30 +70,13 @@ public class SinglyLinkedSet<E> implements Set<E> {
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
-        for (Object o : c) {
+    public boolean containsAll(Collection<?> collection) {
+        for (Object o : collection) {
             if (!this.contains(o)) {
                 return false;
             }
         }
         return true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Set<?> set = (Set<?>) o;
-        return this.size() == set.size() && this.containsAll(set);
-    }
-
-    @Override
-    public int hashCode() {
-        int hashCode = 0;
-        for (E e : this) {
-            hashCode += e.hashCode();
-        }
-        return hashCode;
     }
 
     @Override
@@ -103,7 +86,7 @@ public class SinglyLinkedSet<E> implements Set<E> {
 
     @Override
     public boolean isEmpty() {
-        return this.size() == 0;
+        return size == 0;
     }
 
     @Override
@@ -122,7 +105,7 @@ public class SinglyLinkedSet<E> implements Set<E> {
             @Override
             public E next() {
                 if (current == null) {
-                    throw new NoSuchElementException();
+                    throw new NoSuchElementInSetException("No more elements in singly linked set.");
                 }
                 E element = current.getData();
                 previousPrevious = previous;
@@ -135,7 +118,7 @@ public class SinglyLinkedSet<E> implements Set<E> {
             @Override
             public void remove() {
                 if (previous == null || !nextCalled) {
-                    throw  new IllegalStateException();
+                    throw new IllegalStateInSetException("No elements in set.");
                 }
                 if (previousPrevious == null) {
                     head = current;
@@ -225,14 +208,6 @@ public class SinglyLinkedSet<E> implements Set<E> {
     }
 
     @Override
-    public String toString() {
-        return "SinglyLinkedSet{" +
-                "elements=" + Arrays.toString(this.toArray()) +
-                ", size=" + size +
-                '}';
-    }
-
-    @Override
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return Set.super.toArray(generator);
     }
@@ -250,5 +225,30 @@ public class SinglyLinkedSet<E> implements Set<E> {
     @Override
     public Stream<E> parallelStream() {
         return Set.super.parallelStream();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Set<?> set = (Set<?>) o;
+        return this.size() == set.size() && this.containsAll(set);
+    }
+
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        for (E e : this) {
+            hashCode += e.hashCode();
+        }
+        return hashCode;
+    }
+
+    @Override
+    public String toString() {
+        return "SinglyLinkedSet{" +
+                "elements=" + Arrays.toString(this.toArray()) +
+                ", size=" + size +
+                '}';
     }
 }
