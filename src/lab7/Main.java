@@ -32,6 +32,7 @@ public class Main {
         mobileTariffs1.add(callTariff1);
         mobileTariffs1.add(callSmsTariff1);
         mobileTariffs1.add(callSmsInternetTariff1);
+        CallTariff[] mobileTariffs = mobileTariffs1.toArray(new CallTariff[0]);
 
         Set<MobileTariff> mobileTariffs2 = new SinglyLinkedSet<>(callTariff2);
         mobileTariffs2.add(callSmsTariff2);

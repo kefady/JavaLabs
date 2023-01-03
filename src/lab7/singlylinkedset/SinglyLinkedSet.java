@@ -14,16 +14,14 @@ public class SinglyLinkedSet<E> implements Set<E> {
     private int size;
 
     public SinglyLinkedSet() {
-        this.head = null;
     }
 
     public SinglyLinkedSet(E element) {
-        this.head = new Node<>(element);
-        this.size = 1;
+        add(element);
     }
 
     public SinglyLinkedSet(Collection<? extends E> collection) {
-        this.addAll(collection);
+        addAll(collection);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class SinglyLinkedSet<E> implements Set<E> {
     public boolean addAll(Collection<? extends E> collection) {
         int sizeBefore = size;
         for (E e : collection) {
-            this.add(e);
+            add(e);
         }
         return size != sizeBefore;
     }
@@ -52,11 +50,6 @@ public class SinglyLinkedSet<E> implements Set<E> {
             head = null;
             size = 0;
         }
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
     @Override
@@ -79,10 +72,6 @@ public class SinglyLinkedSet<E> implements Set<E> {
         return true;
     }
 
-    @Override
-    public void forEach(Consumer<? super E> action) {
-        Set.super.forEach(action);
-    }
 
     @Override
     public boolean isEmpty() {
@@ -127,11 +116,6 @@ public class SinglyLinkedSet<E> implements Set<E> {
                 }
                 size--;
                 nextCalled = false;
-            }
-
-            @Override
-            public void forEachRemaining(Consumer<? super E> action) {
-                Iterator.super.forEachRemaining(action);
             }
         };
     }
@@ -192,19 +176,19 @@ public class SinglyLinkedSet<E> implements Set<E> {
 
     @Override
     public <T> T[] toArray(T[] a) {
-        Object[] result = a;
+        T[] result = a;
         if (this.size() > result.length) {
-            result = new Object[this.size()];
+            result = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
         }
         int index = 0;
         for (E e : this) {
-            result[index] = e;
+            result[index] = (T) e;
             index++;
         }
         if (result.length > index) {
             result[index] = null;
         }
-        return (T[]) result;
+        return result;
     }
 
     @Override

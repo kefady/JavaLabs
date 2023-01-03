@@ -1,6 +1,6 @@
 package lab8;
 
-public class NotFoundMobileTariffException extends Exception{
+public class NotFoundMobileTariffException extends Exception {
     public NotFoundMobileTariffException() {
         super();
     }
